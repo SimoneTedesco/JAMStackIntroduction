@@ -12,6 +12,13 @@ const Todo = ({ todo, reloadTodos }) => {
       })
       .then(reloadTodos);
   };
+  const handleDelete = () => {
+    axios
+      .post("/api/delete-todo", {
+        id: todo._id,
+      })
+      .then(reloadTodos);
+  };
   return (
     <>
       <label htmlFor={`todo-toggle-${todo._id}`} className={styles.label}>
@@ -27,6 +34,15 @@ const Todo = ({ todo, reloadTodos }) => {
       <p className={`${styles.text} ${todo.completed && styles.completed}`}>
         {todo.text}
       </p>
+
+      <label htmlFor={`todo-toggle-${todo._id}`} className={styles.label}>
+        delete
+      </label>
+      <button onClick={handleDelete} className={styles.delete}>
+        <span role="img" aria-label="delete" title="delete">
+          ❌
+        </span>
+      </button>
     </>
   );
 };
